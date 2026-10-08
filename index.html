@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffe8ef">
+  <meta name="description" content="Маленькая история о большой любви. Для Кристины ❤️">
+  <title>Кристина — моя самая красивая история</title>
+  <style>
+    :root {
+      --pink: #f7a8bd;
+      --deep-pink: #d96f91;
+      --pale: #fff0f4;
+      --ink: #44323a;
+      --muted: #8d737d;
+      --white: #fffdfd;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--white); line-height: 1.6;
+    }
+    a { color: inherit; }
+    .nav {
+      position: sticky; top: 0; z-index: 5;
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 22px;
+      padding: 14px 18px; background: rgba(255,253,253,.94);
+      border-bottom: 1px solid #f8e5eb; backdrop-filter: blur(10px);
+      font: 12px/1.4 Arial, sans-serif;
+    }
+    .nav a { text-decoration: none; color: #8e6c78; }
+    .nav a:hover { color: var(--deep-pink); }
+    .hero {
+      min-height: 540px; padding: 90px 22px 80px; text-align: center;
+      display: grid; place-items: center;
+      background: radial-gradient(ellipse at 50% 35%, #fff8fa 0, #ffe8ef 55%, #ffdce7 100%);
+      overflow: hidden; position: relative;
+    }
+    .hero:before, .hero:after {
+      content: "♡"; position: absolute; color: rgba(217,111,145,.20);
+      font-size: 100px; pointer-events: none;
+    }
+    .hero:before { left: 7%; top: 12%; transform: rotate(-18deg); }
+    .hero:after { right: 8%; bottom: 8%; transform: rotate(15deg); }
+    .eyebrow { font: 11px/1.5 Arial, sans-serif; letter-spacing: .24em; text-transform: uppercase; color: #c07c91; }
+    h1 { max-width: 780px; margin: 18px auto; font-weight: 400; font-size: clamp(38px, 7vw, 68px); line-height: 1.12; }
+    .hero p { max-width: 540px; margin: 18px auto 28px; color: var(--muted); font: 15px/1.8 Arial, sans-serif; }
+    .button {
+      display: inline-block; border: 0; border-radius: 999px; padding: 14px 25px;
+      background: var(--pink); color: white; text-decoration: none;
+      font: 13px Arial, sans-serif; cursor: pointer; transition: transform .2s, background .2s;
+      box-shadow: 0 8px 24px #d96f912b;
+    }
+    .button:hover { background: var(--deep-pink); transform: translateY(-2px); }
+    section { padding: 76px 20px; }
+    .section-head { max-width: 720px; margin: 0 auto 32px; text-align: center; }
+    .section-head .eyebrow { margin-bottom: 8px; }
+    h2 { margin: 8px 0 12px; font-size: clamp(30px, 5vw, 43px); font-weight: 400; line-height: 1.2; }
+    .section-head p { color: var(--muted); font: 14px/1.8 Arial, sans-serif; }
+    .story { background: #fff8fa; }
+    .story-card {
+      max-width: 780px; margin: auto; padding: clamp(24px, 5vw, 46px);
+      border: 1px solid #f4dce4; border-radius: 22px; background: #fffdfd;
+      box-shadow: 0 18px 60px #a44d6c0b; text-align: center;
+    }
+    .story-card p { margin: 0; font-size: 19px; }
+    .gallery {
+      max-width: 1000px; margin: auto; display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;
+    }
+    .photo {
+      min-height: 210px; aspect-ratio: 4 / 5; overflow: hidden; position: relative;
+      border-radius: 16px; border: 1px solid #f2dbe3; background: linear-gradient(145deg, #fff0f4, #f9d4e0);
+      display: grid; place-items: center; text-align: center; padding: 14px;
+    }
+    .photo img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; }
+    .photo span { color: #a56d80; font: 13px/1.6 Arial, sans-serif; }
+    .reasons { background: #fff4f7; }
+    .reason-grid { max-width: 960px; margin: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .reason {
+      border: 1px solid #f4dce4; border-radius: 15px; padding: 20px 16px;
+      background: #fffdfd; text-align: center; font-size: 16px;
+    }
+    .reason b { display: block; color: var(--deep-pink); font-size: 13px; margin-bottom: 7px; font-family: Arial, sans-serif; }
+    .letter-wrap { max-width: 700px; margin: auto; text-align: center; }
+    .envelope {
+      margin: 26px auto 0; width: min(100%, 480px); padding: 30px 24px;
+      border-radius: 18px; border: 1px solid #f1d3dd; background: #fff6f8;
+    }
+    #letter { display: none; text-align: left; white-space: pre-line; margin-top: 22px; font-size: 18px; }
+    #letter.open { display: block; animation: appear .6s ease; }
+    .heart { display: inline-block; color: var(--deep-pink); animation: pulse 1.5s infinite; }
+    footer { padding: 30px 20px; text-align: center; color: #a17f8c; background: #fff8fa; font: 12px Arial, sans-serif; }
+    .floating-heart { position: fixed; z-index: 10; bottom: -30px; color: #e58da7; pointer-events: none; animation: float-up 3.2s linear forwards; }
+    @keyframes appear { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 50% { transform: scale(1.18); } }
+    @keyframes float-up { to { transform: translateY(-110vh) rotate(30deg); opacity: 0; } }
+    @media (max-width: 680px) {
+      .nav { gap: 8px 13px; }
+      .hero { min-height: 490px; padding-top: 70px; }
+      section { padding: 58px 16px; }
+      .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .photo { min-height: 170px; }
+      .reason-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 390px) { .reason-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Главная навигация">
+    <a href="#top">♡</a><a href="#story">Наша история</a><a href="#photos">Фотографии</a>
+    <a href="#reasons">Причины</a><a href="#letter-section">Письмо</a>
+  </nav>
+
+  <header class="hero" id="top">
+    <div>
+      <div class="eyebrow">Маленький сайт для особенной девушки</div>
+      <h1>Кристина, ты — моя самая красивая история</h1>
+      <p>Из всех случайностей в мире я особенно рад той, которая привела меня к тебе. Каждый момент с тобой — что-то особенное.</p>
+      <a class="button" href="#story">Начать нашу историю ♡</a>
+    </div>
+  </header>
+
+  <section id="story" class="story">
+    <div class="section-head">
+      <div class="eyebrow">Глава первая</div>
+      <h2>С чего всё началось</h2>
+      <p>Самые тёплые истории состоят из маленьких моментов.</p>
+    </div>
+    <div class="story-card">
+      <p>Кристина, может быть, я не всегда умею подобрать идеальные слова, но я хочу, чтобы ты знала: ты занимаешь особенное место в моём сердце. Мне нравится узнавать тебя, улыбаться вместе с тобой и создавать воспоминания, к которым хочется возвращаться. <span class="heart">♡</span></p>
+      <p style="margin-top:18px;color:#a17f8c;font:12px Arial,sans-serif;">Здесь можно добавить вашу настоящую историю — как познакомились и какой момент запомнился больше всего.</p>
+    </div>
+  </section>
+
+  <section id="photos">
+    <div class="section-head">
+      <div class="eyebrow">Наши моменты</div>
+      <h2>Маленькая галерея воспоминаний</h2>
+      <p>Положи свои фотографии в папку <b>photos</b> и назови их photo1.jpg, photo2.jpg и photo3.jpg — они появятся здесь.</p>
+    </div>
+    <div class="gallery">
+      <div class="photo"><span>Фото № 1<br>Добавь photos/photo1.jpg</span><img src="photos/photo1.jpg" alt="Наше фото 1" onerror="this.remove()"></div>
+      <div class="photo"><span>Фото № 2<br>Добавь photos/photo2.jpg</span><img src="photos/photo2.jpg" alt="Наше фото 2" onerror="this.remove()"></div>
+      <div class="photo"><span>Фото № 3<br>Добавь photos/photo3.jpg</span><img src="photos/photo3.jpg" alt="Наше фото 3" onerror="this.remove()"></div>
+    </div>
+  </section>
+
+  <section id="reasons" class="reasons">
+    <div class="section-head">
+      <div class="eyebrow">Совсем немного из бесконечности</div>
+      <h2>Причины, почему ты особенная</h2>
+      <p>Это только начало — добавь свои личные причины, которые подходят именно Кристине.</p>
+    </div>
+    <div class="reason-grid">
+      <div class="reason"><b>01</b>За твою улыбку ♡</div>
+      <div class="reason"><b>02</b>За то, как ты умеешь поднять настроение</div>
+      <div class="reason"><b>03</b>За твой характер и искренность</div>
+      <div class="reason"><b>04</b>За наши разговоры</div>
+      <div class="reason"><b>05</b>За моменты, когда мы смеёмся вместе</div>
+      <div class="reason"><b>06</b>Потому что ты — это ты</div>
+    </div>
+  </section>
+
+  <section id="letter-section">
+    <div class="letter-wrap">
+      <div class="eyebrow">Для тебя, Кристина</div>
+      <h2>У меня есть кое-что для тебя…</h2>
+      <p style="color:#8d737d;font:14px/1.8 Arial,sans-serif;">Нажми на кнопку, чтобы открыть моё маленькое письмо.</p>
+      <div class="envelope">
+        <div style="font-size:44px;">💌</div>
+        <button class="button" id="open-letter" type="button">Открыть письмо</button>
+        <div id="letter">Кристина, ❤️
+
+Я сделал этот маленький сайт специально для тебя, чтобы подарить тебе не просто слова, а целую маленькую историю.
+
+Спасибо за то, что ты есть. Я надеюсь, что этот подарок вызовет у тебя улыбку и напомнит, насколько ты для меня особенная.
+
+Хочу, чтобы у нас было ещё много счастливых моментов, искренних улыбок и воспоминаний, которые мы будем хранить в сердце.
+
+Ты — моя самая красивая история. ♡
+
+С теплом,
+твой человек 💗</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Сделано с любовью специально для Кристины <span class="heart">♡</span></footer>
+
+  <script>
+    const letterButton = document.getElementById('open-letter');
+    const letter = document.getElementById('letter');
+    letterButton.addEventListener('click', () => {
+      const isOpen = letter.classList.toggle('open');
+      letterButton.textContent = isOpen ? 'Закрыть письмо' : 'Открыть письмо';
+      if (isOpen) {
+        for (let i = 0; i < 14; i++) {
+          const heart = document.createElement('span');
+          heart.className = 'floating-heart';
+          heart.textContent = Math.random() > .5 ? '♥' : '♡';
+          heart.style.left = Math.random() * 100 + 'vw';
+          heart.style.fontSize = (14 + Math.random() * 20) + 'px';
+          heart.style.animationDuration = (2.2 + Math.random() * 2) + 's';
+          document.body.appendChild(heart);
+          setTimeout(() => heart.remove(), 4500);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
